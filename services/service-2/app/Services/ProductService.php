@@ -10,7 +10,6 @@ class ProductService
     {
         $query = Product::with(['category', 'images']);
 
-        // Jika ada filter kategori, terapkan ke query
         if (isset($filters['category_id'])) {
             $query->where('category_id', $filters['category_id']);
         }
