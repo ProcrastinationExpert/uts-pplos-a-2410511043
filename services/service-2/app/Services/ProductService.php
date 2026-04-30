@@ -21,4 +21,10 @@ class ProductService
 
         return $query->paginate($perPage);
     }
+    public function createProduct(array $data)
+    {
+        // ini nanti bisa tambahkan logika lain
+        
+        return Product::create($data);
+    }
 }

@@ -32,4 +32,17 @@ class ProductController extends Controller
             'data' => $products
         ], 200);
     }
+
+    public function store(StoreProductRequest $request)
+    {
+        $validatedData = $request->validated();
+
+        $product = $this->productService->createProduct($validatedData);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Produk berhasil ditambahkan',
+            'data' => $product
+        ], 201);
+    }
 }
