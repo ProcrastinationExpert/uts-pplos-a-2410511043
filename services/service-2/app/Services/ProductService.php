@@ -26,4 +26,45 @@ class ProductService
         
         return Product::create($data);
     }
+    public function getProductById($id)
+    {
+        return Product::with(['category', 'images', 'reviews'])->find($id);
+    }
+    public function updateProduct($id, array $data)
+    {
+        $product = Product::find($id);
+        if (!$product) {
+            return null;
+        }
+
+        $product->update($data);
+        return $product;
+    }
+    public function deleteProduct($id)
+    {
+        $product = Product::find($id);
+        if (!$product) {
+            return false;
+        }
+
+        $product->delete();
+        return true;
+    }
+    public function checkStock($id, $requestedQuantity)
+    {
+        $product = Product::find($id);
+        
+        if (!$product) {
+            return ['status' => 'not_found'];
+        }
+
+        if ($product->stock >= $requestedQuantity) {
+            return [
+                'status' => 'available',
+                'price' => $product->price,
+                'stock' => $product->stock
+            ];
+        }
+        return ['status' => 'insufficient_stock'];
+    }
 }
