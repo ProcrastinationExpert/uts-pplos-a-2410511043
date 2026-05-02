@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Product;
+use Illuminate\Support\Str;
 
 class ProductService
 {
@@ -22,8 +23,7 @@ class ProductService
     }
     public function createProduct(array $data)
     {
-        // ini nanti bisa tambahkan logika lain
-        
+        $data['slug'] = Str::slug($data['name']);
         return Product::create($data);
     }
     public function getProductById($id)
